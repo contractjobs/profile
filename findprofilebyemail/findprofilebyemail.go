@@ -18,6 +18,7 @@ func findProfileByEmail(req events.APIGatewayProxyRequest) (events.APIGatewayPro
 			Body:       err.Error(),
 		}, nil
 	}
+	log.Println("success response")
 	return events.APIGatewayProxyResponse{
 		StatusCode: 200,
 		Body:       resp,
