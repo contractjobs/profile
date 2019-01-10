@@ -16,8 +16,8 @@ phases:
       - cd "/go/src/${PACKAGE}"
       - go get -t ./...
       - golint -set_exit_status
-      - go vet .
-      - go test .
+      - go vet ./findprofilebyemail
+      - go test ./findprofilebyemail
 
   build:
     commands:
