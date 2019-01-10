@@ -13,7 +13,7 @@ phases:
 
   pre_build:
     commands:
-      - cd "/go/src/${PACKAGE}/findprofilebyemail"
+      - cd "/go/src/${PACKAGE}"
       - go get -t ./...
       - golint -set_exit_status
       - go vet ./findprofilebyemail
@@ -21,7 +21,7 @@ phases:
 
   build:
     commands:
-      - GOOS=linux go build -o findprofilebyemail
+      - GOOS=linux go build -o ./findprofilebyemail
       - zip $CODEBUILD_RESOLVED_SOURCE_VERSION.zip findprofilebyemail
       - aws s3 cp $CODEBUILD_RESOLVED_SOURCE_VERSION.zip s3://$S3_BUCKET/
 
