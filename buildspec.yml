@@ -34,4 +34,4 @@ phases:
   post_build:
     commands:
       - aws lambda update-function-code --function-name findprofilebyemail --s3-bucket $S3_BUCKET1 --s3-key $CODEBUILD_RESOLVED_SOURCE_VERSION.zip
-      - aws lambda update-function-code --function-name findprofilebyemail --s3-bucket $S3_BUCKET2 --s3-key $CODEBUILD_RESOLVED_SOURCE_VERSION.zip
+      - aws lambda update-function-code --function-name saveprofile --s3-bucket $S3_BUCKET2 --s3-key $CODEBUILD_RESOLVED_SOURCE_VERSION.zip
