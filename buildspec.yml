@@ -13,7 +13,7 @@ phases:
 
   pre_build:
     commands:
-      - cd "/go/src/${PACKAGE}"
+      - cd "/go/src/${PACKAGE}/findprofilebyemail"
       - go get -t ./...
       - golint -set_exit_status
       - go vet ./findprofilebyemail
