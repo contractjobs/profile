@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    S3_BUCKET: "profile-lambda-deployment-packages"
+    S3_BUCKET: "findprofilebyemail-lambda-deployment-packages"
     PACKAGE: "github.com/contractjobs/profile"
 
 phases:
