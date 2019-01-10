@@ -21,8 +21,8 @@ phases:
 
   build:
     commands:
-      - GOOS=linux go build ./findprofilebyemail -o findprofilebyemail
-      - zip $CODEBUILD_RESOLVED_SOURCE_VERSION.zip findprofilebyemail
+      - GOOS=linux go build  -o findprofilebyemail_function ./findprofilebyemail
+      - zip $CODEBUILD_RESOLVED_SOURCE_VERSION.zip findprofilebyemail_function
       - aws s3 cp $CODEBUILD_RESOLVED_SOURCE_VERSION.zip s3://$S3_BUCKET/
 
   post_build:
