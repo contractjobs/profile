@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/contractjobs/profile/service"
@@ -8,6 +10,7 @@ import (
 
 func findProfileByEmail(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	email := req.PathParameters["email"]
+	log.Println(email)
 	resp, err := service.NewProfileService().FindProfileByEmail(email)
 	if err != nil {
 		return events.APIGatewayProxyResponse{
