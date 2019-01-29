@@ -11,6 +11,7 @@ type profileService struct {
 	dbhandler persistence.DatabaseHandler
 }
 
+//NewProfileService get profile service
 func NewProfileService() *profileService {
 	databaseHandler, err := dblayer.NewPersistenceLayer("dynamodb", "us-east-1")
 	if err != nil {
@@ -21,6 +22,7 @@ func NewProfileService() *profileService {
 	}
 }
 
+//FindProfileByEmail
 func (ps *profileService) FindProfileByEmail(email string) (string, error) {
 	profile, err := ps.dbhandler.FindProfileByEmail(email)
 	if err != nil {
@@ -30,13 +32,14 @@ func (ps *profileService) FindProfileByEmail(email string) (string, error) {
 	return string(bytes), nil
 }
 
-func (ps *profileService) NewProfile(theJson string) ([]byte, error) {
+//NewProfile
+func (ps *profileService) NewProfile(theJson string) (string, error) {
 
 	var profile persistence.Profile
 	err := json.Unmarshal([]byte(theJson), &profile)
 	if err != nil {
 		panic(err)
-		return nil, err
+		return "", err
 	}
 	return ps.dbhandler.AddUpdateProfile(profile)
 }

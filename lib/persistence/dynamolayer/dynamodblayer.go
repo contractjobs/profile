@@ -12,8 +12,7 @@ import (
 )
 
 const (
-	PROFILE     = "Profile"
-	EMAIL_INDEX = "Email-index"
+	PROFILE = "Profile"
 )
 
 type DynamoDBLayer struct {
@@ -40,22 +39,22 @@ func NewDynamoDBLayerBySession(sess *session.Session) persistence.DatabaseHandle
 	}
 }
 
-func (dynamoLayer *DynamoDBLayer) AddUpdateProfile(profile persistence.Profile) ([]byte, error) {
+func (dynamoLayer *DynamoDBLayer) AddUpdateProfile(profile persistence.Profile) (string, error) {
 	log.Println("in Add update Profile")
 	av, err := dynamodbattribute.MarshalMap(profile)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	_, err = dynamoLayer.service.PutItem(&dynamodb.PutItemInput{
 		TableName: aws.String(PROFILE),
 		Item:      av,
 	})
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Returning profile")
-	log.Println(profile.ID)
-	return []byte(profile.ID), nil
+	log.Println(profile.Email)
+	return profile.Email, nil
 }
 
 func (dynamoLayer *DynamoDBLayer) FindProfileByEmail(name string) (persistence.Profile, error) {
@@ -67,7 +66,7 @@ func (dynamoLayer *DynamoDBLayer) FindProfileByEmail(name string) (persistence.P
 				S: aws.String(name),
 			},
 		},
-		IndexName: aws.String(EMAIL_INDEX),
+		//		IndexName: aws.String(EMAIL_INDEX),
 		TableName: aws.String(PROFILE),
 	}
 	// Execute the query

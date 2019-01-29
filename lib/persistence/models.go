@@ -1,20 +1,29 @@
 package persistence
 
+// Profile Model details
 type Profile struct {
-	ID                string
-	Profilename       string
-	Email             string
-	PhoneNo           string
-	ContractEndDate   string
-	Location          string
-	Skills            []string
-	PreferredRate     int
-	PreferredLocation []string
-	notifyRules       NotifyRules
+	Email                  string
+	ProfileName            string
+	Phone                  int
+	Company                string
+	Skills                 []string
+	CurrentContractEndDate string
+	CurrentLocation        string
+	PreferredRatePerHour   int
+	PreferredLocation      []string
+	Notify                 bool
+	NotifyMethod           NotifyMethod
+	NotifyRules            NotifyRules
 }
 
+// NotifyRules used to determine if match should be notified to profile
 type NotifyRules struct {
-	NotifyWhenContractIsEnding       bool
-	NotifyWhenRateMatch              bool
-	NotifyWhenPreferredLocationMatch bool
+	NotifyOnRateMatch     bool
+	NotifyOnLocationMatch bool
+}
+
+// NotifyMethod to notify profile
+type NotifyMethod struct {
+	Email bool
+	Phone bool
 }

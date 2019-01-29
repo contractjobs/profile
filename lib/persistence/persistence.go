@@ -1,6 +1,7 @@
 package persistence
 
+//DatabaseHandler interface
 type DatabaseHandler interface {
-	AddUpdateProfile(Profile) ([]byte, error)
+	AddUpdateProfile(Profile) (string, error)
 	FindProfileByEmail(string) (Profile, error)
 }

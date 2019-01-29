@@ -8,7 +8,7 @@ import (
 
 func saveProfile(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
-	id, err := service.NewProfileService().NewProfile(req.Body)
+	email, err := service.NewProfileService().NewProfile(req.Body)
 
 	if err != nil {
 		return events.APIGatewayProxyResponse{
@@ -21,7 +21,7 @@ func saveProfile(req events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		Headers: map[string]string{
 			"Content-Type": "application/json",
 		},
-		Body: string(id),
+		Body: email,
 	}, nil
 }
 
