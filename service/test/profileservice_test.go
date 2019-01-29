@@ -9,8 +9,8 @@ import (
 )
 
 func TestNewProfile_forSuccess(t *testing.T) {
-	expected := "sanjayk@test1.com"
-	theJSON := `{"Email":"sanjayk@test1.com","ProfileName":"Sanjay Kataria","Phone":0,"Company":"","Skills":["Java","MongoDB"],"CurrentContractEndDate":"01/31/2019","CurrentLocation":"Northern Virginia","PreferredRatePerHour":0,"PreferredLocation":["Virginia","Maryland","Washington DC"],"Notify":false,"NotifyMethod":{"Email":false,"Phone":false},"NotifyRules":{"NotifyOnRateMatch":false,"NotifyOnLocationMatch":false}}`
+	expected := "sanjayk@test2.com"
+	theJSON := `{"Email":"sanjayk@test2.com","ProfileName":"Sanjay Kataria","Phone":0,"Company":"","Skills":["Java","MongoDB"],"CurrentContractEndDate":"01/31/2019","CurrentLocation":"Northern Virginia","PreferredRatePerHour":0,"PreferredLocation":["Virginia","Maryland","Washington DC"],"Notify":false,"NotifyMethod":{"Email":false,"Phone":false},"NotifyRules":{"NotifyOnRateMatch":false,"NotifyOnLocationMatch":false}}`
 	response, err := service.NewProfileService().NewProfile(theJSON)
 	assert.IsType(t, nil, err)
 	assert.Equal(t, expected, response)
