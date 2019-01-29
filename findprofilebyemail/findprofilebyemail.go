@@ -26,5 +26,6 @@ func findProfileByEmail(req events.APIGatewayProxyRequest) (events.APIGatewayPro
 }
 
 func main() {
+	log.Println("calling findprofilebyemail")
 	lambda.Start(findProfileByEmail)
 }
