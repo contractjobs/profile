@@ -19,7 +19,11 @@ func findAllProfiles(req events.APIGatewayProxyRequest) (events.APIGatewayProxyR
 	log.Println("sending success response")
 	return events.APIGatewayProxyResponse{
 		StatusCode: 200,
-		Body:       resp,
+		Headers: map[string]string{
+			"Content-Type":                "application/json",
+			"Access-Control-Allow-Origin": "*",
+		},
+		Body: resp,
 	}, nil
 }
 
