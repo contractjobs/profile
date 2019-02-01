@@ -57,6 +57,20 @@ func (dynamoLayer *DynamoDBLayer) AddUpdateProfile(profile persistence.Profile) 
 	return profile.Email, nil
 }
 
+func (dynamoLayer *DynamoDBLayer) FindAllProfiles() ([]persistence.Profile, error) {
+	input := &dynamodb.ScanInput{
+		TableName: aws.String(PROFILE),
+	}
+	result, err := dynamoLayer.service.Scan(input)
+	if err != nil {
+		return nil, err
+	}
+	profile := []persistence.Profile{}
+	err = dynamodbattribute.UnmarshalListOfMaps(result.Items, &profile)
+	return profile, err
+
+}
+
 func (dynamoLayer *DynamoDBLayer) FindProfileByEmail(name string) (persistence.Profile, error) {
 	//Create the QueryInput type with the information we need to execute the query
 	input := &dynamodb.QueryInput{

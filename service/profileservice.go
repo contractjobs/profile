@@ -22,6 +22,16 @@ func NewProfileService() *profileService {
 	}
 }
 
+//FindAllProfiles
+func (ps *profileService) FindAllProfiles() (string, error) {
+	profile, err := ps.dbhandler.FindAllProfiles()
+	if err != nil {
+		return "", err
+	}
+	bytes, _ := json.Marshal(&profile)
+	return string(bytes), nil
+}
+
 //FindProfileByEmail
 func (ps *profileService) FindProfileByEmail(email string) (string, error) {
 	profile, err := ps.dbhandler.FindProfileByEmail(email)

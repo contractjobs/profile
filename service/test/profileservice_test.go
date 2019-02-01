@@ -24,3 +24,9 @@ func TestFindProfileByEmail_forSuccess(t *testing.T) {
 	assert.IsType(t, nil, err)
 	assert.Equal(t, expected, response)
 }
+
+func TestFindAllProfiles_forSuccess(t *testing.T) {
+	response, err := service.NewProfileService().FindAllProfiles()
+	assert.IsType(t, nil, err)
+	assert.NotNil(t, response)
+}

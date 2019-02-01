@@ -3,6 +3,7 @@ env:
   variables:
     S3_BUCKET1: "findprofilebyemail-lambda-deployment-packages"
     S3_BUCKET2: "saveprofile-lambda-deployment-packages"
+    S3_BUCKET3: "findallprofiles-lambda-deployment-packages"
     PACKAGE: "github.com/contractjobs/profile"
 
 phases:
@@ -17,10 +18,10 @@ phases:
       - cd "/go/src/${PACKAGE}"
       - go get -t ./...
       - golint -set_exit_status
-      - go vet ./findprofilebyemail
       - go test ./findprofilebyemail
       - go test ./saveprofile
-      - go test ./saveprofile
+      - go test ./findallprofiles
+
 
   build:
     commands:
@@ -30,8 +31,12 @@ phases:
       - GOOS=linux go build  -o saveprofile_function ./saveprofile
       - zip $CODEBUILD_RESOLVED_SOURCE_VERSION.zip saveprofile_function
       - aws s3 cp $CODEBUILD_RESOLVED_SOURCE_VERSION.zip s3://$S3_BUCKET2/
+      - GOOS=linux go build  -o findallprofiles_function ./findallprofiles
+      - zip $CODEBUILD_RESOLVED_SOURCE_VERSION.zip findallprofiles_function
+      - aws s3 cp $CODEBUILD_RESOLVED_SOURCE_VERSION.zip s3://$S3_BUCKET3/
 
   post_build:
     commands:
       - aws lambda update-function-code --function-name findprofilebyemail --s3-bucket $S3_BUCKET1 --s3-key $CODEBUILD_RESOLVED_SOURCE_VERSION.zip
       - aws lambda update-function-code --function-name saveprofile --s3-bucket $S3_BUCKET2 --s3-key $CODEBUILD_RESOLVED_SOURCE_VERSION.zip
+      - aws lambda update-function-code --function-name findallprofiles --s3-bucket $S3_BUCKET3 --s3-key $CODEBUILD_RESOLVED_SOURCE_VERSION.zip
